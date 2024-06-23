@@ -14,14 +14,19 @@ const MainNavLinks = () => {
 
   return (
     <div className="flex items-center gap-2">
-      {links.map(({ label, href }) => (
-        <Link
-          className={`navbar-link ${href === pathname ? "text-primary cursor-default" : ""}`}
-          href={href}
-        >
-          {label}
-        </Link>
-      ))}
+      {links.map(({ label, href }) => {
+        const active = href.split("/")[1] === pathname.split("/")[1];
+
+        return (
+          <Link
+            key={href}
+            className={`navbar-link ${active ? "text-primary cursor-default" : ""}`}
+            href={href}
+          >
+            {label}
+          </Link>
+        );
+      })}
     </div>
   );
 };
