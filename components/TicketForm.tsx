@@ -25,14 +25,25 @@ import {
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Ticket } from "@prisma/client";
 
 type TicketFormData = z.infer<typeof ticketSchema>;
 
-const TicketForm: FC = () => {
+interface Props {
+  ticket?: Ticket;
+}
+
+const TicketForm: FC<Props> = ({ ticket }) => {
   const router = useRouter();
   const [error, setError] = useState("");
   const form = useForm<TicketFormData>({
     resolver: zodResolver(ticketSchema),
+    defaultValues: {
+      title: ticket?.title || "",
+      description: ticket?.description || "",
+      priority: ticket?.priority || "",
+      status: ticket?.status || "",
+    },
   });
   const {
     handleSubmit,
@@ -42,9 +53,13 @@ const TicketForm: FC = () => {
 
   const onSubmit = async (values: TicketFormData) => {
     try {
-      await axios.post("/api/tickets", values);
+      if (ticket) {
+        await axios.patch(`/api/tickets/${ticket.id}`, values);
+      } else {
+        await axios.post("/api/tickets", values);
+      }
 
-      router.push("/tickets");
+      router.back();
       router.refresh();
     } catch (e) {
       setError("Unknown error occurred");
@@ -102,7 +117,7 @@ const TicketForm: FC = () => {
             control={control}
             render={({ field: { onChange, value } }) => (
               <FormItem>
-                <FormLabel>Status</FormLabel>
+                <FormLabel>Priority</FormLabel>
                 <Select onValueChange={onChange} value={value}>
                   <FormControl>
                     <SelectTrigger>
@@ -117,7 +132,7 @@ const TicketForm: FC = () => {
                 </Select>
               </FormItem>
             )}
-            name="status"
+            name="priority"
           />
         </div>
         <Button disabled={isSubmitting} type="submit">

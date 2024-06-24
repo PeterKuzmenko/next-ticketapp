@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/table";
 import TicketStatusBadge from "@/components/TicketStatusBadge";
 import TicketPriority from "@/components/TicketPriority";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { formatDate } from "@/lib/utils";
 
 interface Props {
   tickets: Ticket[];
@@ -29,23 +32,16 @@ const DataTable: FC<Props> = ({ tickets }) => {
       <TableBody>
         {tickets?.map(({ id, title, status, createdAt, priority }) => (
           <TableRow key={id}>
-            <TableCell>{title}</TableCell>
+            <TableCell>
+              <Link href={`/tickets/${id}`}>{title}</Link>
+            </TableCell>
             <TableCell>
               <TicketStatusBadge status={status} />
             </TableCell>
             <TableCell>
               <TicketPriority priority={priority} />
             </TableCell>
-            <TableCell>
-              {createdAt.toLocaleDateString("en-US", {
-                year: "2-digit",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true,
-              })}
-            </TableCell>
+            <TableCell>{formatDate(createdAt)}</TableCell>
           </TableRow>
         ))}
       </TableBody>
