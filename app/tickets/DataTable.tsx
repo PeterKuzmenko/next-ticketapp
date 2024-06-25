@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/table";
 import TicketStatusBadge from "@/components/TicketStatusBadge";
 import TicketPriority from "@/components/TicketPriority";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 

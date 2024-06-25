@@ -62,4 +62,8 @@
   .navbar-link {
     @apply font-medium text-muted-foreground transition-colors hover:text-primary;
   }
+
+  .pagination__button {
+    @apply min-w-10 !h-10 !px-2;
+  }
 }
