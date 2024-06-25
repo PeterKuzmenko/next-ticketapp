@@ -14,7 +14,7 @@ const priorityMap: Record<Priority, { label: string; level: 1 | 2 | 3 }> = {
 
 const TicketPriority: FC<Props> = ({ priority }) => {
   return (
-    <div className="flex justify-center">
+    <div className="flex">
       {Object.values(priorityMap).map(({ level }) => (
         <FlameIcon
           key={level}
