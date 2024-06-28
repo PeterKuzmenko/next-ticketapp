@@ -1,5 +1,5 @@
 import prisma from "@/prisma/db";
-import DataTable from "@/app/tickets/DataTable";
+import TicketsDataTable from "@/app/tickets/DataTable";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import Pagination from "@/components/Pagination";
@@ -43,7 +43,7 @@ const Tickets = async ({ searchParams }: { searchParams: SearchParams }) => {
         </Link>
         <StatusFilter />
       </div>
-      <DataTable tickets={tickets} searchParams={searchParams} />
+      <TicketsDataTable tickets={tickets} searchParams={searchParams} />
       <Pagination
         pageSize={PAGE_SIZE}
         itemsCount={ticketCount}

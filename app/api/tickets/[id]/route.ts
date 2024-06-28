@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ticketSchema } from "@/ValidationSchemas/ticket";
+import { ticketPatchSchema, ticketSchema } from "@/ValidationSchemas/ticket";
 import prisma from "@/prisma/db";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 export async function PATCH(request: NextRequest, { params }: Props) {
   const body = await request.json();
-  const validation = ticketSchema.safeParse(body);
+  const validation = ticketPatchSchema.safeParse(body);
 
   if (!validation.success) {
     return NextResponse.json(validation.error.format(), { status: 400 });

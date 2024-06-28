@@ -6,3 +6,5 @@ export const ticketSchema = z.object({
   status: z.string().max(10).optional(),
   priority: z.string().max(10).optional(),
 });
+
+export const ticketPatchSchema = ticketSchema.partial();

@@ -39,59 +39,61 @@ const tableHeaders = [
   },
 ];
 
-const DataTable: FC<Props> = ({ tickets, searchParams }) => {
+const TicketsDataTable: FC<Props> = ({ tickets, searchParams }) => {
   const toggledDirection = searchParams.direction === "desc" ? "asc" : "desc";
 
   return (
-    <Table className="w-full mt-5 rounded-md sm:border">
-      <TableHeader>
-        <TableRow>
-          {tableHeaders.map(({ label, value }) => (
-            <TableHead key={value}>
-              <Link
-                className="cursor-pointer"
-                href={{
-                  query: {
-                    ...searchParams,
-                    page: undefined,
-                    orderBy: value,
-                    direction:
-                      searchParams.orderBy === value
-                        ? toggledDirection
-                        : "desc",
-                  },
-                }}
-              >
-                {label}
-              </Link>
-              {searchParams.orderBy === value &&
-                (searchParams.direction === "asc" ? (
-                  <ArrowUp className="inline pl-1" />
-                ) : (
-                  <ArrowDown className="inline pl-1" />
-                ))}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {tickets?.map(({ id, title, status, createdAt, priority }) => (
-          <TableRow key={id}>
-            <TableCell>
-              <Link href={`/tickets/${id}`}>{title}</Link>
-            </TableCell>
-            <TableCell>
-              <TicketStatusBadge status={status} />
-            </TableCell>
-            <TableCell>
-              <TicketPriority priority={priority} />
-            </TableCell>
-            <TableCell>{formatDate(createdAt)}</TableCell>
+    <div className="w-full mt-5 rounded-md sm:border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {tableHeaders.map(({ label, value }) => (
+              <TableHead key={value}>
+                <Link
+                  className="cursor-pointer"
+                  href={{
+                    query: {
+                      ...searchParams,
+                      page: undefined,
+                      orderBy: value,
+                      direction:
+                        searchParams.orderBy === value
+                          ? toggledDirection
+                          : "desc",
+                    },
+                  }}
+                >
+                  {label}
+                </Link>
+                {searchParams.orderBy === value &&
+                  (searchParams.direction === "asc" ? (
+                    <ArrowUp className="inline pl-1" />
+                  ) : (
+                    <ArrowDown className="inline pl-1" />
+                  ))}
+              </TableHead>
+            ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {tickets?.map(({ id, title, status, createdAt, priority }) => (
+            <TableRow key={id}>
+              <TableCell>
+                <Link href={`/tickets/${id}`}>{title}</Link>
+              </TableCell>
+              <TableCell>
+                <TicketStatusBadge status={status} />
+              </TableCell>
+              <TableCell>
+                <TicketPriority priority={priority} />
+              </TableCell>
+              <TableCell>{formatDate(createdAt)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
-export default DataTable;
+export default TicketsDataTable;

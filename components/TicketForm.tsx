@@ -48,7 +48,7 @@ const TicketForm: FC<Props> = ({ ticket }) => {
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors: validationErrors },
   } = form;
 
   const onSubmit = async (values: TicketFormData) => {
@@ -59,7 +59,7 @@ const TicketForm: FC<Props> = ({ ticket }) => {
         await axios.post("/api/tickets", values);
       }
 
-      router.back();
+      router.push("/tickets");
       router.refresh();
     } catch (e) {
       setError("Unknown error occurred");
@@ -136,9 +136,13 @@ const TicketForm: FC<Props> = ({ ticket }) => {
           />
         </div>
         <Button disabled={isSubmitting} type="submit">
-          Submit
+          {ticket ? "Update Ticket" : "Create Ticket"}
         </Button>
       </form>
+      {error && <p className="text-destructive">{error}</p>}
+      {Object.values(validationErrors).map(({ message }) => (
+        <p className="text-destructive">{message}</p>
+      ))}
     </Form>
   );
 };
