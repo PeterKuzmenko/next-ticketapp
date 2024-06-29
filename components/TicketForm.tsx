@@ -138,11 +138,11 @@ const TicketForm: FC<Props> = ({ ticket }) => {
         <Button disabled={isSubmitting} type="submit">
           {ticket ? "Update Ticket" : "Create Ticket"}
         </Button>
+        {error && <p className="text-destructive">{error}</p>}
+        {Object.values(validationErrors).map(({ message }) => (
+          <p className="text-destructive">{message}</p>
+        ))}
       </form>
-      {error && <p className="text-destructive">{error}</p>}
-      {Object.values(validationErrors).map(({ message }) => (
-        <p className="text-destructive">{message}</p>
-      ))}
     </Form>
   );
 };

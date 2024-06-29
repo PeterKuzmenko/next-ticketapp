@@ -28,7 +28,7 @@ const TicketDetails = ({ ticket, users }: Props) => {
 
   return (
     <div className="lg:grid lg:grid-cols-4">
-      <Card className="mx-4 mb-4 lg:col-span-3 lg:mr-4">
+      <Card className="mb-4 lg:col-span-3 lg:mr-4">
         <CardHeader>
           <div className="flex justify-between mb-3">
             <TicketStatusBadge status={status} />
@@ -42,8 +42,10 @@ const TicketDetails = ({ ticket, users }: Props) => {
         </CardContent>
         <CardFooter>Updated: {formatDate(updatedAt)}</CardFooter>
       </Card>
-      <div className="mx-4 flex lg:flex-col lg:mx-0 gap-2">
-        <AssignTicket ticket={ticket} users={users} />
+      <div className="flex lg:flex-col lg:mx-0 gap-2">
+        <div className="min-w-[200px] lg:mr-0 mr-auto">
+          <AssignTicket ticket={ticket} users={users} />
+        </div>
         <Link href={`/tickets/edit/${id}`} className={buttonVariants()}>
           Edit ticket
         </Link>

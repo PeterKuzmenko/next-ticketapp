@@ -42,7 +42,7 @@ export async function PATCH(request: NextRequest, { params }: Props) {
     }
   }
 
-  const updatedUser = prisma.user.update({
+  const updatedUser = await prisma.user.update({
     where: { id: user.id },
     data: body,
   });
