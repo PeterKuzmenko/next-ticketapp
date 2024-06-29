@@ -30,7 +30,7 @@ export default function RootLayout({
               <MainNav />
             </div>
           </nav>
-          <main className="flex flex-col items-center px-4">
+          <main className="flex flex-col items-center px-4 pb-4">
             <div className="max-w-6xl w-full">{children}</div>
           </main>
         </ThemeProvider>
